@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
-import { env } from "../env/env.js";
-import { appSetup } from "./app.setup.js";
-import { appRoutes } from "./app.routes.js";
+import { env } from "./config/env/env.js";
+import { appSetup } from "./config/app/app.setup.js";
+import { appRoutes } from "./config/app/app.routes.js";
 
 /**
  * Inicia a aplicação e a coloca para rodar

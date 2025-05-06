@@ -1,4 +1,4 @@
-import { app } from './app/app.js';
-import { start } from './app/app.start.js';
+import { app } from './app.js';
+import { start } from './app.start.js';
 
 start(app);

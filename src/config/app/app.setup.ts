@@ -23,6 +23,7 @@ export const appSetup = async (app: FastifyInstance): Promise<FastifyInstance> =
             version: '1.0.0',
             },
             tags: [
+              { name: 'cep', description: 'Endpoints relacionados a operações relacionadas ao CEP.'},
               { name: 'app', description: 'Endpoints relacionados à aplicação em si.'}
             ]
         },

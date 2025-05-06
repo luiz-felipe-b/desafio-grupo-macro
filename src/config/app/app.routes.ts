@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { z } from "zod";
+import { postalGet } from "../../routes/postal.get.js";
 
 /**
  * Registra as rotas da aplicação.
@@ -19,7 +20,9 @@ export const appRoutes = async (app: FastifyInstance): Promise<FastifyInstance> 
         }
     }, async () => {
         return { status: 'OK' };
-      });
+    });
+
+    app.register(postalGet);
 
     return app
 }
