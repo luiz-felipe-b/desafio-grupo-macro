@@ -23,6 +23,9 @@ importers:
       drizzle-orm:
         specifier: ^0.39.3
         version: 0.39.3(@types/pg@8.12.0)(pg@8.15.6)(postgres@3.4.5)
+      drizzle-zod:
+        specifier: ^0.7.1
+        version: 0.7.1(drizzle-orm@0.39.3(@types/pg@8.12.0)(pg@8.15.6)(postgres@3.4.5))(zod@3.24.4)
       fastify:
         specifier: ^5.2.2
         version: 5.3.2
@@ -724,6 +727,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.7.1:
+    resolution: {integrity: sha512-nZzALOdz44/AL2U005UlmMqaQ1qe5JfanvLujiTHiiT8+vZJTBFhj3pY4Vk+L6UWyKFfNmLhk602Hn4kCTynKQ==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: '>=3.0.0'
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -1600,6 +1609,11 @@ snapshots:
       '@types/pg': 8.12.0
       pg: 8.15.6
       postgres: 3.4.5
+
+  drizzle-zod@0.7.1(drizzle-orm@0.39.3(@types/pg@8.12.0)(pg@8.15.6)(postgres@3.4.5))(zod@3.24.4):
+    dependencies:
+      drizzle-orm: 0.39.3(@types/pg@8.12.0)(pg@8.15.6)(postgres@3.4.5)
+      zod: 3.24.4
 
   eastasianwidth@0.2.0: {}
 

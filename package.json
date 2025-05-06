@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "tsx watch --env-file .env src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "studio": "drizzle-kit studio"
   },
   "keywords": [],
   "author": "Luiz Felipe Balaminute dos Santos",
@@ -19,6 +20,7 @@
     "@fastify/swagger": "^9.4.2",
     "@fastify/swagger-ui": "^5.2.2",
     "drizzle-orm": "^0.39.3",
+    "drizzle-zod": "^0.7.1",
     "fastify": "^5.2.2",
     "fastify-plugin": "^5.0.1",
     "fastify-type-provider-zod": "^4.0.2",
