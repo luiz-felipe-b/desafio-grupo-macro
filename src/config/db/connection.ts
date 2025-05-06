@@ -6,4 +6,4 @@ const pool = new Pool({
     connectionString: env.DATABASE_URL
 });
     
-const db = drizzle(pool);
+export const db = drizzle(pool);

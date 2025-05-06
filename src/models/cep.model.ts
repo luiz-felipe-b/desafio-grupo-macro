@@ -1,4 +1,4 @@
-import { pgTable, text, varchar, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, text, varchar, timestamp } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
@@ -17,8 +17,8 @@ export const cepTable = pgTable('ceps', {
     gia: text('gia'),
     ddd: varchar('ddd', { length: 2 }),
     siafi: text('siafi'),
-    createdAt: text('created_at').notNull().default(new Date().toISOString()),
-    updatedAt: text('updated_at').notNull().default(new Date().toISOString()),
+    createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date' }).notNull().defaultNow()
 });
 
 export const CepSchema = z.object({
