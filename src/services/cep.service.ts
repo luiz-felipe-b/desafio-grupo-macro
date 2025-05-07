@@ -9,7 +9,7 @@ export class CepService {
 
     async getByCep(cep: string) {
 
-        const result = await this.cepRepository.getByCep(cep);
+        const result = await this.cepRepository.getCepByCep(cep);
 
         return result;
     }
