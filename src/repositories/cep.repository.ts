@@ -13,6 +13,11 @@ export class CepRepository {
         return result;
     }
 
+    async createCep(cep: string, data: any) {
+        const result = await db.insert(cepTable).values({ cep, ...data });
+        return result;
+    }
+
     async patchCep(cep: string, data: any) {
         const result = await db.update(cepTable).set(data).where(eq(cepTable.cep, cep));
         return result;

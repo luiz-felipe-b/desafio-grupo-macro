@@ -40,7 +40,7 @@ export class CepController {
 
         const { cep } = parsedParams.data;
 
-        const result = await this.cepService.getByCep(cep);
+        const result = await this.cepService.getCepByCep(cep);
     
         return reply.status(200).send(result);
     }

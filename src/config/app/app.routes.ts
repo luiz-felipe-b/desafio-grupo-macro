@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { z } from "zod";
-import { postalGet } from "../../routes/cep.get.cep.js";
+import { cepGet } from "../../routes/cep.get.cep.js";
 
 /**
  * Registra as rotas da aplicação.
@@ -22,7 +22,7 @@ export const appRoutes = async (app: FastifyInstance): Promise<FastifyInstance> 
         return { status: 'OK' };
     });
 
-    app.register(postalGet);
+    app.register(cepGet);
 
     return app
 }

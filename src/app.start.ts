@@ -10,9 +10,11 @@ import { appRoutes } from "./config/app/app.routes.js";
 export const start = async (app: FastifyInstance) => {
     const setupApp = await appSetup(app)
 
-    const routedApp = await appRoutes(setupApp);
+    setupApp.register(appRoutes, {
+        prefix: '/api'
+    });
 
-    const finalApp = routedApp;
+    const finalApp = setupApp;
 
     finalApp.listen({
       port: env.PORT,

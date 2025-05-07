@@ -4,7 +4,7 @@ import { CepService } from "../services/cep.service.js";
 import { CepRepository } from "../repositories/cep.repository.js";
 import { z } from "zod";
 
-export const postalGet = async (app: FastifyInstance) => {
+export const cepGet = async (app: FastifyInstance) => {
     const cepRepository = new CepRepository();
     const cepService = new CepService(cepRepository);
     const cepController = new CepController(cepService);
