@@ -1,9 +1,10 @@
-import { pgTable, text, varchar, timestamp } from 'drizzle-orm/pg-core';
+import { pgTable, text, varchar, timestamp, boolean } from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
 export const cepTable = pgTable('ceps', {
     id: varchar('id', { length: 36 }).primaryKey().notNull(),
+    favorito: boolean('favorito').default(false),
     cep: varchar('cep', { length: 9 }).notNull().unique(),
     logradouro: text('logradouro').notNull(),
     complemento: text('complemento'),
@@ -23,6 +24,7 @@ export const cepTable = pgTable('ceps', {
 
 export const CepSchema = z.object({
     id: z.string().uuid(),
+    favorito: z.boolean().default(false),
     cep: z.string().length(9),
     logradouro: z.string().nonempty(),
     complemento: z.string().optional(),

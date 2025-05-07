@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { z } from "zod";
-import { postalGet } from "../../routes/postal.get.cep.js";
+import { postalGet } from "../../routes/cep.get.cep.js";
 
 /**
  * Registra as rotas da aplicação.

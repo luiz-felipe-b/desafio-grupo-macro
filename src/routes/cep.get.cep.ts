@@ -1,15 +1,15 @@
 import { FastifyInstance } from "fastify";
-import { PostalController } from "../controllers/postal.controller.js";
-import { PostalService } from "../services/postal.service.js";
-import { PostalRepository } from "../repositories/postal.repository.js";
+import { CepController } from "../controllers/cep.controller.js";
+import { CepService } from "../services/cep.service.js";
+import { CepRepository } from "../repositories/cep.repository.js";
 import { z } from "zod";
 
 export const postalGet = async (app: FastifyInstance) => {
-    const postalRepository = new PostalRepository();
-    const postalService = new PostalService(postalRepository);
-    const postalController = new PostalController(postalService);
+    const cepRepository = new CepRepository();
+    const cepService = new CepService(cepRepository);
+    const cepController = new CepController(cepService);
 
-    app.get('/:postalCode', {
+    app.get('/:cep', {
       schema: {
         description: "Buscar informações a partir de um CEP.",
         tags: ['cep'],
@@ -30,5 +30,5 @@ export const postalGet = async (app: FastifyInstance) => {
             }).describe('Erro ao buscar informações do CEP'),
         }
       },  
-    }, postalController.getPostalCode.bind(postalController));
+    }, cepController.getByCep.bind(cepController));
 }

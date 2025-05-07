@@ -1,0 +1,1 @@
+ALTER TABLE "ceps" ADD COLUMN "favorito" boolean DEFAULT false;
