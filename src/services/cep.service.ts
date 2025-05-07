@@ -1,10 +1,16 @@
 import { CepRepository } from "../repositories/cep.repository.js";
+import { v4 as uuid } from 'uuid';
 
 export class CepService {
     private cepRepository: CepRepository;
 
     constructor(cepRepository: CepRepository) {
         this.cepRepository = cepRepository;
+    }
+
+    async getAll() {
+        const result = await this.cepRepository.getAll();
+        return result;
     }
 
     async getCepByCep(cep: string) {
@@ -30,7 +36,7 @@ export class CepService {
             throw new Error('CEP não encontrado na base de dados externa');
         }
 
-        await this.cepRepository.createCep(formattedCep, {
+        const result = await this.cepRepository.createCep(formattedCep, {
             cep: data.cep,
             logradouro: data.logradouro,
             complemento: data.complemento,
@@ -44,8 +50,9 @@ export class CepService {
             estado: data.estado,
             regiao: data.uf,
         });
+        console.log('result', result);
 
-        return data;
+        return result;
 
         // // Salvar o CEP no banco de dados
         // await this.cepRepository.saveCep({

@@ -19,6 +19,11 @@ export class CepController {
         this.cepService = cepService;
     }
 
+    async getAll(request: FastifyRequest, reply: FastifyReply): Promise<FastifyReply> {
+        const result = await this.cepService.getAll();
+        return reply.status(200).send(result);
+    }
+
     /**
      * Método para buscar informações de um CEP.
      * @param {FastifyRequest} request - Requisição do Fastify.

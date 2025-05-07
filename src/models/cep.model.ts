@@ -2,6 +2,7 @@ import { pgTable, text, varchar, timestamp, boolean } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { v4 as uuid } from 'uuid';
+import { create } from 'domain';
 
 export const cepTable = pgTable('ceps', {
     id: varchar('id', { length: 36 }).primaryKey().notNull().$defaultFn(() => uuid()),
@@ -26,20 +27,21 @@ export const cepTable = pgTable('ceps', {
 export const CepSchema = z.object({
     id: z.string().uuid(),
     favorito: z.boolean().default(false),
-    cep: z.string().length(9),
+    cep: z.string(),
     logradouro: z.string().nonempty(),
     complemento: z.string().optional(),
     unidade: z.string().optional(),
     bairro: z.string().nonempty(),
     localidade: z.string().nonempty(),
-    uf: z.string().length(2),
+    uf: z.string(),
     estado: z.string().nonempty(),
     regiao: z.string().nonempty(),
     ibge: z.string().optional(),
     gia: z.string().optional(),
     ddd: z.string().optional(),
     siafi: z.string().optional(),
-    updatedAt: z.string().datetime(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
 });
 
 export const insertCepSchema = createInsertSchema(cepTable);

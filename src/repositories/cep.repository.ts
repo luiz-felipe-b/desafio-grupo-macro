@@ -8,13 +8,13 @@ export class CepRepository {
         return result;
     }
 
-    async getAllCeps() {
+    async getAll() {
         const result = await db.select().from(cepTable);
         return result;
     }
 
     async createCep(cep: string, data: any) {
-        const result = await db.insert(cepTable).values({ cep, ...data });
+        const result = await db.insert(cepTable).values({ cep, ...data }).returning();
         return result;
     }
 
