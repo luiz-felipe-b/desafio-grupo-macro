@@ -36,7 +36,15 @@ export const cepGetCep = async (app: FastifyInstance) => {
                 createdAt: z.date().describe('Data de criação'),
                 updatedAt: z.date().describe('Data de atualização'),
             }).describe('Informações do CEP'),
+            400: z.object({
+                message: z.string().describe('Mensagem de erro'),
+                details: z.string().describe('Detalhes do erro'),
+            }).describe('Erro de validação'),
+            404: z.object({
+                message: z.string().describe('Mensagem de erro'),
+                details: z.string().describe('Detalhes do erro'),
+            }).describe('CEP não encontrado'),
         }
-      },  
+      },    
     }, cepController.getByCep.bind(cepController));
 }

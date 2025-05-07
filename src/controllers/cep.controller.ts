@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { CepService } from "../services/cep.service.js";
 import { z } from "zod";
+import { httpErrors } from "../util/http-errors.js";
 
 /**
  * Controller para gerenciar as requisições relacionadas a CEPs.
@@ -19,6 +20,38 @@ export class CepController {
         this.cepService = cepService;
     }
 
+    async handleRequest(request: FastifyRequest, reply: FastifyReply, callback: (request: FastifyRequest, reply: FastifyReply) => Promise<void>): Promise<FastifyReply> { 
+        try {
+            await callback(request, reply);
+            return reply;
+        } catch (error) {
+            if (typeof error === 'string') {
+                return reply.status(400).send({
+                    message: 'Erro de validação',
+                    details: error,
+                });
+            }
+            if (!(error instanceof Error)) {
+                return reply.status(400).send({
+                    message: 'Erro de validação',
+                    details: error,
+                });
+            }
+            const errorKey = error.message as keyof typeof httpErrors;
+            if (errorKey in httpErrors) {
+                const httpError = httpErrors[errorKey];
+                return reply.status(httpError.statusCode).send({
+                    message: httpError.message,
+                    details: httpError.description,
+                });
+            }
+
+            return reply.status(500).send({
+                error: 'Erro interno do servidor',
+                details: error,
+            });
+        }
+    }
     /**
      * Método para buscar todos os CEPs.
      * @param {FastifyRequest} request - Requisição do Fastify.
@@ -37,23 +70,23 @@ export class CepController {
      * @returns {Promise<FastifyReply>} - Retorna a resposta com as informações do CEP.
      */
     async getByCep(request: FastifyRequest, reply: FastifyReply): Promise<FastifyReply> {
-        // Validação de parâmetros da requisição
-        const paramsSchema = z.object({
-            cep: z.string().describe('CEP'),
-        });
-        const parsedParams = paramsSchema.safeParse(request.params);
-        if (!parsedParams.success) {
-            return reply.status(400).send({
-                error: 'CEP Inválido',
-                details: parsedParams.error.format(),
+        return this.handleRequest(request, reply, async (request, reply) => {
+            // Validação de parâmetros da requisição
+            const paramsSchema = z.object({
+                cep: z.string().describe('CEP'),
             });
-        }
+            const parsedParams = paramsSchema.safeParse(request.params);
+            if (!parsedParams.success) {
+                throw new Error('invalid-cep');
+            }
 
-        const { cep } = parsedParams.data;
+            const { cep } = parsedParams.data;
 
-        const result = await this.cepService.getCepByCep(cep);
-    
-        return reply.status(200).send(result);
+            const result = await this.cepService.getCepByCep(cep);
+
+            return reply.status(200).send(result);
+        });
+        
     }
 
     /**

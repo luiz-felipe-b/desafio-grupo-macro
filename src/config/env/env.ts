@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { describeEnvErrors } from './util/describe-env-errors.js';
+import { printErrors } from '../../util/print-errors.js';
 import { envSchema } from './env.schema.js';
 
 const parsedEnv = envSchema.safeParse(process.env);
@@ -9,7 +9,7 @@ if (!parsedEnv.success) {
   
   const fieldErrors = parsedEnv.error.format();
 
-  describeEnvErrors(fieldErrors);
+  printErrors(fieldErrors);
 
   console.error('\nChecar as variáveis do .env e depois, reiniciar a aplicação.\n');
   process.exit(1);

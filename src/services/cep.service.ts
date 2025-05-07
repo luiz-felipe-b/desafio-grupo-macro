@@ -1,5 +1,6 @@
 import { CepRepository } from "../repositories/cep.repository.js";
 import { v4 as uuid } from 'uuid';
+import { validateCep } from "../util/validate-cep.js";
 
 /** 
  * Classe de serviço para gerenciar operações relacionadas a CEPs.
@@ -31,10 +32,7 @@ export class CepService {
      */
     async getCepByCep(cep: string): Promise<any> {
         // Validação do CEP
-        const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
-        if (!cepRegex.test(cep)) {
-            throw new Error('CEP inválido');
-        }
+        validateCep(cep);
 
         // Verifica se o CEP já existe no banco de dados
         const existingCep = await this.cepRepository.getCepByCep(cep);
@@ -49,7 +47,7 @@ export class CepService {
 
         // Verificar se a API retornou erro
         if (data.erro) {
-            throw new Error('CEP não encontrado na base de dados externa');
+            throw new Error('cep-not-found');
         }
 
         const result = await this.cepRepository.createCep(formattedCep, {
@@ -77,9 +75,12 @@ export class CepService {
      */
     async setFavorite(cep: string, favorite: boolean): Promise<void> {
         // Validação do CEP
+        if (!cep.includes('-')) {
+            throw new Error('need-to-format-cep');
+        }
         const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
         if (!cepRegex.test(cep)) {
-            throw new Error('CEP inválido');
+            throw new Error('invalid-cep');
         }
 
         // Verifica se o CEP já existe no banco de dados
