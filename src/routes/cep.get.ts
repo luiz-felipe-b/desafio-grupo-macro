@@ -4,6 +4,10 @@ import { CepController } from "../controllers/cep.controller.js";
 import { CepRepository } from "../repositories/cep.repository.js";
 import { z } from "zod";
 
+/**
+ * Rota para buscar informações de todos os CEPs.
+ * @param app - Instância do Fastify
+ */
 export const cepGet = async (app: FastifyInstance) => {
     const cepRepository = new CepRepository();
     const cepService = new CepService(cepRepository);

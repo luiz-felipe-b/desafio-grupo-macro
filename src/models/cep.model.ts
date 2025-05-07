@@ -2,8 +2,10 @@ import { pgTable, text, varchar, timestamp, boolean } from 'drizzle-orm/pg-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { v4 as uuid } from 'uuid';
-import { create } from 'domain';
 
+/**
+ * Tabela de CEPs.
+ */
 export const cepTable = pgTable('ceps', {
     id: varchar('id', { length: 36 }).primaryKey().notNull().$defaultFn(() => uuid()),
     favorito: boolean('favorito').default(false),
@@ -24,6 +26,9 @@ export const cepTable = pgTable('ceps', {
     updatedAt: timestamp('updated_at', { mode: 'date' }).notNull().defaultNow()
 });
 
+/**
+ * Schema Zod de validação para o modelo de CEP.
+ */
 export const CepSchema = z.object({
     id: z.string().uuid(),
     favorito: z.boolean().default(false),

@@ -1,6 +1,13 @@
 import { CepRepository } from "../repositories/cep.repository.js";
 import { v4 as uuid } from 'uuid';
 
+/** 
+ * Classe de serviço para gerenciar operações relacionadas a CEPs.
+ * 
+ * Essa classe é responsável por interagir com o repositório de CEPs, aplicar regras de negócio e realizar operações como buscar todos os CEPs, buscar um CEP específico e criar um novo CEP.
+ * 
+ * @param {CepRepository} cepRepository - Instância do repositório de CEPs.
+ */
 export class CepService {
     private cepRepository: CepRepository;
 
@@ -8,12 +15,21 @@ export class CepService {
         this.cepRepository = cepRepository;
     }
 
-    async getAll() {
+    /**
+     * Método para buscar todos os CEPs.
+     * @returns {Promise<any>}result - Retorna uma lista de todos os CEPs.
+     */
+    async getAll(): Promise<any> {
         const result = await this.cepRepository.getAll();
         return result;
     }
 
-    async getCepByCep(cep: string) {
+    /**
+     * Método para buscar informações de um CEP específico.
+     * @param {string} cep - O CEP a ser buscado.
+     * @returns {Promise<any>} result - Retorna as informações do CEP.
+     */
+    async getCepByCep(cep: string): Promise<any> {
         // Validação do CEP
         const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
         if (!cepRegex.test(cep)) {
@@ -50,22 +66,28 @@ export class CepService {
             estado: data.estado,
             regiao: data.uf,
         });
-        console.log('result', result);
 
         return result;
+    }
 
-        // // Salvar o CEP no banco de dados
-        // await this.cepRepository.saveCep({
-        //     cep: data.cep,
-        //     logradouro: data.logradouro,
-        //     complemento: data.complemento,
-        //     bairro: data.bairro,
-        //     localidade: data.localidade,
-        //     uf: data.uf,
-        //     ibge: data.ibge,
-        //     gia: data.gia,
-        //     ddd: data.ddd,
-        //     siafi: data.siafi
-        // });
+    /**
+     * Método para definir o favoritismo de um CEP.
+     * @param cep CEP a ser definido como favorito
+     * @param favorite Valor booleano indicando se o CEP é favorito ou nâo
+     */
+    async setFavorite(cep: string, favorite: boolean): Promise<void> {
+        // Validação do CEP
+        const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
+        if (!cepRegex.test(cep)) {
+            throw new Error('CEP inválido');
+        }
+
+        // Verifica se o CEP já existe no banco de dados
+        const existingCep = await this.cepRepository.getCepByCep(cep);
+        if (!existingCep) {
+            throw new Error('CEP não encontrado na base de dados');
+        }
+        
+        await this.cepRepository.setFavorite(cep, favorite);
     }
 }

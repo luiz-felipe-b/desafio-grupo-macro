@@ -4,6 +4,10 @@ import { CepService } from "../services/cep.service.js";
 import { CepRepository } from "../repositories/cep.repository.js";
 import { z } from "zod";
 
+/**
+ * Rota para buscar informações de um CEP.
+ * @param app - Instância do Fastify
+ */
 export const cepGetCep = async (app: FastifyInstance) => {
     const cepRepository = new CepRepository();
     const cepService = new CepService(cepRepository);
