@@ -19,4 +19,14 @@ export const httpErrors = {
         message: 'CEP precisa ter 9 dígitos',
         description: 'O CEP informado precisa ter 9 dígitos.',
     },
+    'no-data-to-update': {
+        statusCode: 400,
+        message: 'Nâo existem dados para atualizar',
+        description: 'Nenhum dado que necessita ou pode ser atualizado foi fornecido.'
+    },
+    'invalid-cep-patch-body': {
+        statusCode: 400,
+        message: 'O corpo da requisição não é válido',
+        description: 'O corpo da requisição nâo pode ser usado para atualizar os dados.'
+    }
 }

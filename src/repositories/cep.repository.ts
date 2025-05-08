@@ -44,8 +44,9 @@ export class CepRepository {
      * @param data Dados do CEP
      * @returns result Retorna as informações do CEP atualizado
      */
-    async patchCep(cep: string, data: any) {
-        const result = await db.update(cepTable).set(data).where(eq(cepTable.cep, cep));
+    async patchCep(cep: string, data: { bairro?: string | undefined, logradouro?: string | undefined }) {
+        const [result] = await db.update(cepTable).set(data).where(eq(cepTable.cep, cep)).returning();
+        console.log(result);
         return result;
     }
 

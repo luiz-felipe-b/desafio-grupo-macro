@@ -127,4 +127,34 @@ export class CepController {
     
         return reply.status(200).send({cep, favorite});
     }
+
+    async patch(request: FastifyRequest, reply: FastifyReply): Promise<FastifyReply> {
+        return this.handleRequest(request, reply, async (request, reply) => {
+            // Validação de parâmetros da requisição
+            const paramsSchema = z.object({
+                cep: z.string().describe('CEP'),
+            });
+            const parsedParams = paramsSchema.safeParse(request.params);
+            if (!parsedParams.success) {
+                throw new Error('invalid-cep');
+            }
+
+            // Validação do corpo da requisição
+            const bodySchema = z.object({
+                bairro: z.string().optional(),
+                logradouro: z.string().optional()
+            })
+            const parsedBody = bodySchema.safeParse(request.body);
+            if (!parsedBody.success) {
+                throw new Error('invalid-cep-patch-body')
+            }
+            
+            const { cep } = parsedParams.data;
+            const data = parsedBody.data;
+
+            await this.cepService.patch(cep, data);
+
+            return reply.status(200).send({message: "O CEP foi atualizado com sucesso."})
+        });
+    }
 }

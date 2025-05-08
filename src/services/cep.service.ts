@@ -75,13 +75,7 @@ export class CepService {
      */
     async setFavorite(cep: string, favorite: boolean): Promise<void> {
         // Validação do CEP
-        if (!cep.includes('-')) {
-            throw new Error('need-to-format-cep');
-        }
-        const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
-        if (!cepRegex.test(cep)) {
-            throw new Error('invalid-cep');
-        }
+        validateCep(cep);
 
         // Verifica se o CEP já existe no banco de dados
         const existingCep = await this.cepRepository.getCepByCep(cep);
@@ -90,5 +84,26 @@ export class CepService {
         }
         
         await this.cepRepository.setFavorite(cep, favorite);
+
+        return;
+    }
+
+    async patch(cep: string, data: { bairro?: string | undefined, logradouro?: string | undefined }): Promise<void> {
+        // Validação do CEP
+        validateCep(cep);
+
+        // Verifica se possui algum dos dois dados
+        if (!(data.bairro || data.logradouro)) {
+            throw Error('no-data-to-update')
+        }
+
+        const result = await this.cepRepository.patchCep(cep, data)
+
+        // Verifica se o cep foi atualizado com sucesso
+        if (!result) {
+            throw Error('cep-not-found')
+        }
+
+        return;
     }
 }
