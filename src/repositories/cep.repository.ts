@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { db } from "../config/db/connection.js";
+import { db } from "../config/db/db.connection.js";
 import { Cep, cepTable } from "../models/cep.model.js";
 
 /**

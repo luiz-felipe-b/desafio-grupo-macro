@@ -10,6 +10,7 @@
     "start": "node dist/index.js",
     "studio": "NODE_OPTIONS='--import tsx' DRIZZLE_LOG=1 drizzle-kit studio --port 3333 --host 0.0.0.0",
     "migrate": "NODE_OPTIONS='--import tsx' pnpm exec drizzle-kit generate --name=migration && NODE_OPTIONS='--import tsx' pnpm exec drizzle-kit migrate",
+    "db-init": "NODE_OPTIONS='--import tsx' pnpm migrate && NODE_OPTIONS='--import tsx' tsx --env-file .env src/config/db/db.seed.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

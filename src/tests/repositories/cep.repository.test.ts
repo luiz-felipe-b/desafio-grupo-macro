@@ -52,7 +52,7 @@ describe('CepRepository', () => {
   beforeEach(async () => {
     vi.clearAllMocks();
     cepRepository = new CepRepository();
-    const connection = await import('../../config/db/connection.js');
+    const connection = await import('../../config/db/db.connection.js');
     mockDb = connection.db;
   });
 
