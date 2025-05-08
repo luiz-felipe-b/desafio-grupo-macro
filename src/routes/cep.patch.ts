@@ -31,6 +31,7 @@ export const cepPatch = async (app: FastifyInstance) => {
                     details: z.string().describe('Detalhes')
                 }).describe('CEP não foi encontrado')
             }
-        }
+        },
+        attachValidation: true,
     }, cepController.patch.bind(cepController)) 
 }

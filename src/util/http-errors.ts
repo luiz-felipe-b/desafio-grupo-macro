@@ -28,5 +28,10 @@ export const httpErrors = {
         statusCode: 400,
         message: 'O corpo da requisição não é válido',
         description: 'O corpo da requisição nâo pode ser usado para atualizar os dados.'
+    },
+    'invalid-cep-favorite-body': {
+        statusCode: 400,
+        message: 'O corpo da requisição não é válido',
+        description: 'O corpo da requisição nâo pode ser usado para favoritar o CEP.'
     }
 }

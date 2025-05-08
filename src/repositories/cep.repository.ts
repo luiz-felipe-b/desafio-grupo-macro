@@ -34,7 +34,7 @@ export class CepRepository {
      * @returns result Retorna as informações do CEP criado
      */
     async createCep(cep: string, data: any) {
-        const result = await db.insert(cepTable).values({ cep, ...data }).returning();
+        const [result] = await db.insert(cepTable).values({ cep, ...data }).returning();
         return result;
     }
 
@@ -46,7 +46,6 @@ export class CepRepository {
      */
     async patchCep(cep: string, data: { bairro?: string | undefined, logradouro?: string | undefined }) {
         const [result] = await db.update(cepTable).set(data).where(eq(cepTable.cep, cep)).returning();
-        console.log(result);
         return result;
     }
 

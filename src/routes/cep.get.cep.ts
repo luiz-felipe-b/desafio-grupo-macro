@@ -45,6 +45,7 @@ export const cepGetCep = async (app: FastifyInstance) => {
                 details: z.string().describe('Detalhes do erro'),
             }).describe('CEP não encontrado'),
         }
-      },    
+      },
+      attachValidation: true,
     }, cepController.getByCep.bind(cepController));
 }

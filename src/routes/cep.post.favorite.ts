@@ -25,7 +25,16 @@ export const cepPostFavorite = async (app: FastifyInstance) => {
                     cep: z.string().describe('CEP'),
                     favorite: z.boolean().describe('Favorito'),
                 }).describe('Informações do CEP'),
+                400: z.object({
+                    message: z.string().describe('Mensagem'),
+                    details: z.string().describe('Detalhes')
+                }).describe('Erros na requisição'),
+                404: z.object({
+                    message: z.string().describe('Mensagem'),
+                    details: z.string().describe('Detalhes')
+                }).describe('CEP não foi encontrado')
             }
-        }
+        },
+        attachValidation: true,
     }, cepController.setFavorite.bind(cepController));
 }
