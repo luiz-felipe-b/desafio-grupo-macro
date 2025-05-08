@@ -2,7 +2,7 @@ import { z } from "zod";
 import { Env } from "../config/env/env.schema.js";
 
 /**
- * Recebe os erros de env da validação do Zod e printa uma resposta no terminal
+ * Recebe os erros da validação do Zod e printa uma resposta no terminal
  * @param fieldErrors 
  */
 export const printErrors = (fieldErrors: z.ZodFormattedError<Env, string>) => {

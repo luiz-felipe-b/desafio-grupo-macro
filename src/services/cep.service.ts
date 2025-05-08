@@ -88,6 +88,11 @@ export class CepService {
         return;
     }
 
+    /**
+     * Método para atualiar o Bairro ou Logradouro de um CEP.
+     * @param {string} cep - O CEP a ser atualizado.
+     * @param {any} data - Os dados do CEP a serem atualizados.
+     */
     async patch(cep: string, data: { bairro?: string | undefined, logradouro?: string | undefined }): Promise<void> {
         // Validação do CEP
         validateCep(cep);

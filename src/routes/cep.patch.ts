@@ -5,6 +5,10 @@ import { CepService } from "../services/cep.service.js";
 import { z } from "zod";
 
 
+/**
+ * Rota para atualizar o bairro e/ou logradouro de um CEP.
+ * @param app - Instância do Fastify
+ */
 export const cepPatch = async (app: FastifyInstance) => {
     const cepRepository = new CepRepository();
     const cepService = new CepService(cepRepository);

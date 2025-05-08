@@ -20,6 +20,13 @@ export class CepController {
         this.cepService = cepService;
     }
 
+    /**
+     * Método para lidar com requisições e respostas do Fastify, ela executa uma função e se ela der erro, formata apropriadamente e retorna a resposta.
+     * @param {FastifyRequest} request - Requisição do Fastify.
+     * @param {FastifyReply} reply - Resposta do Fastify.
+     * @param {Function} callback - Função a ser executada.
+     * @returns {Promise<FastifyReply>} - Retorna a resposta do Fastify.
+     */
     async handleRequest(request: FastifyRequest, reply: FastifyReply, callback: (request: FastifyRequest, reply: FastifyReply) => Promise<void>): Promise<FastifyReply> { 
         try {
             await callback(request, reply);
@@ -129,6 +136,12 @@ export class CepController {
         })
     }
 
+    /**
+     * Método para atualizar o bairro e/ou logradouro de um CEP.
+     * @param {FastifyRequest} request - Requisição do Fastify.
+     * @param {FastifyReply} reply - Resposta do Fastify.
+     * @returns {Promise<FastifyReply>} - Retorna a resposta com o status da operação.
+     */
     async patch(request: FastifyRequest, reply: FastifyReply): Promise<FastifyReply> {
         return this.handleRequest(request, reply, async (request, reply) => {
             // Validação de parâmetros da requisição

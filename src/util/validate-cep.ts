@@ -1,3 +1,8 @@
+/**
+ * Função para validar um CEP.
+ * @param {string} cep CEP a ser validado
+ * @returns {boolean} Retorna true se o CEP for válido
+ */
 export const validateCep = (cep: string): boolean => {
     const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
 
