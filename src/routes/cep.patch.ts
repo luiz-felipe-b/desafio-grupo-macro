@@ -21,7 +21,7 @@ export const cepPatch = async (app: FastifyInstance) => {
             body: z.object({
                 bairro: z.string().optional().describe('Bairro'),
                 logradouro: z.string().optional().describe('Logradouro')
-            }).describe('Dados para marcar o CEP como favorito'),
+            }).describe('Dados para atualizar o CEP'),
             response: {
                 200: z.object({
                     message: z.string().describe('Mensagem')
