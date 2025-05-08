@@ -9,7 +9,11 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "studio": "NODE_OPTIONS='--import tsx' DRIZZLE_LOG=1 drizzle-kit studio --port 3333 --host 0.0.0.0",
-    "migrate": "NODE_OPTIONS='--import tsx' pnpm exec drizzle-kit generate --name=migration && NODE_OPTIONS='--import tsx' pnpm exec drizzle-kit migrate"
+    "migrate": "NODE_OPTIONS='--import tsx' pnpm exec drizzle-kit generate --name=migration && NODE_OPTIONS='--import tsx' pnpm exec drizzle-kit migrate",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
   },
   "keywords": [],
   "author": "Luiz Felipe Balaminute dos Santos",
@@ -18,8 +22,6 @@
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
     "@fastify/jwt": "^9.1.0",
-    "@fastify/swagger": "^9.4.2",
-    "@fastify/swagger-ui": "^5.2.2",
     "drizzle-orm": "^0.39.3",
     "drizzle-zod": "^0.7.1",
     "fastify": "^5.2.2",
@@ -30,11 +32,16 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@fastify/swagger": "^9.4.2",
+    "@fastify/swagger-ui": "^5.2.2",
     "@types/node": "^22.13.13",
     "@types/pg": "^8.11.11",
+    "@vitest/coverage-v8": "^3.1.3",
+    "@vitest/ui": "^3.1.3",
     "drizzle-kit": "^0.30.6",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^3.1.3"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [

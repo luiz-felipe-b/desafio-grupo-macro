@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../config/db/connection.js";
-import { cepTable } from "../models/cep.model.js";
+import { Cep, cepTable } from "../models/cep.model.js";
 
 /**
  * Repositório de CEPs.
@@ -13,7 +13,7 @@ export class CepRepository {
      * @param cep CEP a ser buscado
      * @returns result Retorna as informações do CEP
      */
-    async getCepByCep(cep: string) {
+    async getCepByCep(cep: string): Promise<Cep | null> {
         const [result] = await db.select().from(cepTable).where(eq(cepTable.cep, cep));
         return result;
     }
@@ -22,7 +22,7 @@ export class CepRepository {
      * Busca todos os CEPs.
      * @returns result Retorna uma lista de todos os CEPs
      */
-    async getAll() {
+    async getAll(): Promise<Cep[]> {
         const result = await db.select().from(cepTable);
         return result;
     }
@@ -33,7 +33,7 @@ export class CepRepository {
      * @param data Dados do CEP
      * @returns result Retorna as informações do CEP criado
      */
-    async createCep(cep: string, data: any) {
+    async createCep(cep: string, data: any): Promise<Cep> {
         const [result] = await db.insert(cepTable).values({ cep, ...data }).returning();
         return result;
     }
@@ -44,7 +44,7 @@ export class CepRepository {
      * @param data Dados do CEP
      * @returns result Retorna as informações do CEP atualizado
      */
-    async patchCep(cep: string, data: { bairro?: string | undefined, logradouro?: string | undefined }) {
+    async patchCep(cep: string, data: { bairro?: string | undefined, logradouro?: string | undefined }): Promise<Cep | null> {
         const [result] = await db.update(cepTable).set(data).where(eq(cepTable.cep, cep)).returning();
         return result;
     }
@@ -55,8 +55,8 @@ export class CepRepository {
      * @param favorite Valor booleano indicando se o CEP é favorito ou nâo
      * @returns 
      */
-    async setFavorite(cep: string, favorite: boolean) {
-        const result = await db.update(cepTable).set({ favorito: favorite }).where(eq(cepTable.cep, cep));
+    async setFavorite(cep: string, favorite: boolean): Promise<Cep | null> {
+        const [result] = await db.update(cepTable).set({ favorito: favorite }).where(eq(cepTable.cep, cep)).returning();
         return result;
     }
 }

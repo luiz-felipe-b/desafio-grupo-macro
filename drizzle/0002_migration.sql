@@ -1,0 +1,1 @@
+ALTER TABLE "ceps" ALTER COLUMN "favorito" SET NOT NULL;
