@@ -14,6 +14,9 @@ importers:
       '@fastify/jwt':
         specifier: ^9.1.0
         version: 9.1.0
+      desafio-macro:
+        specifier: 'link:'
+        version: 'link:'
       drizzle-orm:
         specifier: ^0.39.3
         version: 0.39.3(@types/pg@8.12.0)(pg@8.15.6)(postgres@3.4.5)
